@@ -21,3 +21,11 @@ This repo downloads ltntstools and any deps, then builds the entire project.
     cd ltntstools/rpm && ./make-rpm.sh
 
 
+## Docker
+
+It's possible to build the tools in Docker and also use it inside the container. This is
+especially nice when you are not running on CentOS (or Linux at all, like macOS). Check
+out following example commands:
+
+	docker build -t ltntools .
+	docker run -it --rm -p 4000:4000/udp ltntools tstools_nic_monitor -i eth0 -M
