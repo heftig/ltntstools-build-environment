@@ -233,7 +233,7 @@ if [ $BUILD_JSONC -eq 1 ]; then
 fi
 
 pushd srt
-	./configure --enable-static=ON --enable-shared=OFF --prefix=$PWD/../target-root/usr
+	./configure --enable-static=ON --enable-shared=OFF --enable-apps=OFF --prefix=$PWD/../target-root/usr
 	make -j8
 	make install
 popd
@@ -280,7 +280,7 @@ popd
 pushd ffmpeg
 	export CFLAGS="-I$PWD/../target-root/usr/include"
 	export LDFLAGS="-L$PWD/../target-root/usr/lib -L$PWD/../target-root/usr/lib64 -lcrypto -lm -lsrt"
-	export PKG_CONFIG_PATH="$PWD/../target-root/usr/lib64/pkgconfig"
+	export PKG_CONFIG_PATH="$PWD/../target-root/usr/lib/pkgconfig:$PWD/../target-root/usr/lib64/pkgconfig"
 	./configure --prefix=$PWD/../target-root/usr --disable-iconv --enable-static \
 		--disable-audiotoolbox --disable-videotoolbox --disable-avfoundation \
 		--enable-libsrt --pkg-config-flags="--static"
