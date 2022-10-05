@@ -10,8 +10,9 @@ RUN apt-get update && apt-get full-upgrade -y && apt-get install -y \
     libz-dev libncurses-dev libpcap-dev liblzma-dev libbz2-dev libzen-dev \
     librdkafka-dev libssl-dev
 
-# Force linking with static library
-RUN rm /usr/lib/x86_64-linux-gnu/lib{pcap,crypto,lzma,bz2}.so
+# Force linking with static libraries
+RUN cd usr/lib/x86_64-linux-gnu && rm lib{pcap,crypto,lzma,bz2}.so && \
+    echo 'INPUT(libncursesw.a libtinfo.a)' > libncurses.so
 
 ADD . /build/
 RUN cd build && ./build.sh ${version} && \
